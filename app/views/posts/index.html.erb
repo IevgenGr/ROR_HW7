@@ -1,0 +1,39 @@
+<div class="container-fluid">
+
+
+  <p id="notice"><%= notice %></p>
+
+  <h1>Posts</h1>
+
+  <table class="table table-striped">
+    <thead>
+    <th>Title</th>
+    <th>Content</th>
+    <th>Image</th>
+    <th colspan="6"></th>
+    </thead>
+
+    <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td class="table-active"><%= post.title %></td>
+        <td class="table-active"><%= post.content %></td>
+        <td class="table-active"><%= post.image %></td>
+        <td><%= link_to 'Show', post,  class: 'btn btn-primary'  %></td>
+        <td><%= link_to 'Edit', edit_post_path(post),  class: 'btn btn-primary' %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } ,  class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+
+  <br>
+
+  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+
+  <!--  <%#= link_to 'Show', question_path(question), class: 'btn btn-primary' %>
+  <%#= link_to 'Edit', edit_question_path(question), class: 'btn btn-secondary' %>
+ -->
+</div>
+
