@@ -1,0 +1,39 @@
+<div class="form-control">
+  <table class="table table-striped">
+    <thead>
+    <th>Comments</th>
+    <th>Author</th>
+    <th>Post_id</th>
+    <th>Status</th>
+    <th>Updated</th>
+    </thead>
+    <tbody>
+    <% @post.comments.unpublished.each do |comment| %>
+      <% if comment.save %>
+        <tr>
+          <td class="table-active"><%= comment.body %></td>
+          <td class="table-active"><%= comment.author.last_name %></td>
+          <td class="table-active"><%= comment.post.title %></td>
+          <td class="table-active"><%= comment.status %></td>
+          <td class="table-active"><%= distance_of_time_in_words(comment.updated_at, Time.now) %></td>
+          <% if comment.status == 'unpublished' %>
+            <td class="table-active"> <%= link_to 'Publish', post_comment_path(comment.post, comment), method: :patch,  class: 'btn btn-primary'  %></td>
+          <% end %>
+          <td class="table-active"> <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete, confirm: 'Are you sure?',  class: 'btn btn-danger'  %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+
+
+  <%= form_with model: [@post,  @comment]  do |form| %>
+    <div class="mb-3 row">
+      <div class="col-sm-2">
+        <%= form.select :status_select, Comment.statuses { |a| a }, selected: '0' , class: "form-control form-control-lg"  %>
+      </div>
+    </div>
+   <!-- <%#= form.submit "Update view comment", class: 'btn btn-primary' %>-->
+  <% end %>
+
+</div>

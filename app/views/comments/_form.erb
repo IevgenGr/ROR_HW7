@@ -1,0 +1,14 @@
+<%= form_with model: [@post,  @comment] do |f| %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= f.label :body %>
+    </div>
+    <div class="col-sm-8">
+      <%= f.text_area :body, class: 'form-control' %>
+    </div>
+    <div class="col-sm-2">
+      <%= f.collection_select :author_id, Author.order(:last_name), :id, :last_name, class: "form-control form-control-lg"  %>
+    </div>
+  </div>
+  <%= f.submit "Submit comment!", class: 'btn btn-primary' %>
+<% end %>

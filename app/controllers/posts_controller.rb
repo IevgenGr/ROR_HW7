@@ -7,7 +7,11 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1 or /posts/1.json
-  def show; end
+  def show
+    increment_count_view
+    @comment = @post.comments.build
+    @comments = Comment.order created_at: :asc
+  end
 
   # GET /posts/new
   def new
@@ -62,8 +66,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def increment_count_view
+    @post.update(count_view: @post.count_view += 1)
+  end
+
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :content, :image, :author_id)
+    params.require(:post).permit(:title, :content, :image, :author_id, :count_view)
   end
-end
+  end
+

@@ -9,7 +9,7 @@
 
   <p>
     <strong>Image:</strong>
-    <%= image_tag @post.image, style: 'width: 270px; height: 100%' %>
+    <%= image_tag @post.image, style: 'width: 200px; height: 100%' %>
   </p>
 
   <p>
@@ -17,7 +17,25 @@
     <%= @post.content %>
   </p>
 
+  <p>
+    <strong>Author:</strong>
+    <%= @post.author.first_name %>
+  </p>
+
 
   <%= link_to 'Edit', edit_post_path(@post),  class: 'btn btn-primary'  %>
   <%= link_to 'Back', posts_path,  class: 'btn btn-primary'  %>
+
+  <h2> Published </h2>
+  <p>
+    <%= render 'comments/comments' %>
+  <p>
+  <h2> Unpublished </h2>
+  <p>
+    <%= render 'comments/comments_unpublished' %>
+  <p>
+  <h2> Add comment </h2>
+    <%= render 'comments/form' %>
+  </p>
+
 </div>
