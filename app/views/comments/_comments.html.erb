@@ -49,7 +49,6 @@
             <td class="table-active"><%= comment.status %></td>
             <td class="table-active"><%= distance_of_time_in_words(comment.updated_at, Time.now) %></td>
             <td class="table-active"><%= distance_of_time_in_words(comment.created_at, Time.now) %></td>
-            <td class="table-active"><%= (Time.now - comment.created_at)/3600 %></td>
             <td class="table-active"> <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete, confirm: 'Are you sure?',  class: "btn btn-outline-primary me-2"   %></td>
             <% if comment.status == 'unpublished' %>
               <td class="table-active"> <%= link_to 'Publish comment', publish_comment_post_comment_path(comment.post, comment), method: :get,  class: "btn btn-outline-primary me-2"  %></td>

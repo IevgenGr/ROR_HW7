@@ -10,5 +10,5 @@
       <%= f.collection_select :author_id, Author.order(:last_name), :id, :last_name, class: "btn btn-outline-primary me-2"  %>
     </div>
   </div>
-  <%= f.submit :class =>"btn btn-info" %>
+  <%= f.submit :class => "btn btn-outline-primary me-2" %>
 <% end %>

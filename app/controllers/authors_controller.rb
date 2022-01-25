@@ -16,6 +16,6 @@ end
 
 private
 
-  def author_params
-    params.require(:author).permit(:email, :last_name, :first_name, :password, :password_confirmation)
-  end
+def author_params
+  params.require(:author).permit(:email, :last_name, :first_name, :password, :password_confirmation)
+end

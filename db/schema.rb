@@ -10,50 +10,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_24_191829) do
-
+ActiveRecord::Schema.define(version: 20_220_124_191_829) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "authors", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "gender"
-    t.datetime "birthday"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "email"
-    t.string "password_digest"
-    t.string "avatar_url"
+  create_table 'authors', force: :cascade do |t|
+    t.string 'first_name'
+    t.string 'last_name'
+    t.string 'gender'
+    t.datetime 'birthday'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'email'
+    t.string 'password_digest'
+    t.string 'avatar_url'
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "post_id"
-    t.bigint "author_id"
-    t.text "body"
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["author_id"], name: "index_comments_on_author_id"
-    t.index ["post_id"], name: "index_comments_on_post_id"
+  create_table 'comments', force: :cascade do |t|
+    t.bigint 'post_id'
+    t.bigint 'author_id'
+    t.text 'body'
+    t.integer 'status', default: 0, null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['author_id'], name: 'index_comments_on_author_id'
+    t.index ['post_id'], name: 'index_comments_on_post_id'
   end
 
-  create_table "posts", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.string "image"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "author_id"
-    t.integer "count_view", default: 0
-    t.index ["author_id"], name: "index_posts_on_author_id"
+  create_table 'posts', force: :cascade do |t|
+    t.string 'title'
+    t.text 'content'
+    t.string 'image'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'author_id'
+    t.integer 'count_view', default: 0
+    t.index ['author_id'], name: 'index_posts_on_author_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'users', force: :cascade do |t|
+    t.string 'email'
+    t.string 'password_digest'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end

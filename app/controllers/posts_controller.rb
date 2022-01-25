@@ -76,14 +76,13 @@ class PostsController < ApplicationController
     params.require(:post).permit(:title, :content, :image, :author_id, :count_view)
   end
 
-def counter_view
-  if cookies[:counter_view].nil?
-    cookies[:counter_view] = 1
-  else
-    var_counter_view = cookies[:counter_view].to_i
-    var_counter_view += 1
-    cookies[:counter_view] = var_counter_view
+  def counter_view
+    if cookies[:counter_view].nil?
+      cookies[:counter_view] = 1
+    else
+      var_counter_view = cookies[:counter_view].to_i
+      var_counter_view += 1
+      cookies[:counter_view] = var_counter_view
+    end
   end
-end
-
 end
