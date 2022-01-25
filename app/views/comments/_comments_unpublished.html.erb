@@ -8,7 +8,7 @@
     <th>Updated</th>
     </thead>
     <tbody>
-    <% @post.comments.unpublished.each do |comment| %>
+    <% @comments.each do |comment| %>
       <% if comment.save %>
         <tr>
           <td class="table-active"><%= comment.body %></td>
@@ -30,10 +30,10 @@
   <%= form_with model: [@post,  @comment]  do |form| %>
     <div class="mb-3 row">
       <div class="col-sm-2">
-        <%= form.select :status_select, Comment.statuses { |a| a }, selected: '0' , class: "form-control form-control-lg"  %>
+        <%= form.select :status, Comment.statuses { |a| a }, selected: '0' , class: "form-control form-control-lg"  %>
       </div>
     </div>
+    <%= link_to 'Back', post_path(:status=>:status),  class: 'btn btn-primary'  %>
    <!-- <%#= form.submit "Update view comment", class: 'btn btn-primary' %>-->
   <% end %>
-
 </div>

@@ -7,8 +7,8 @@
       <%= f.text_area :body, class: 'form-control' %>
     </div>
     <div class="col-sm-2">
-      <%= f.collection_select :author_id, Author.order(:last_name), :id, :last_name, class: "form-control form-control-lg"  %>
+      <%= f.collection_select :author_id, Author.order(:last_name), :id, :last_name, class: "btn btn-outline-primary me-2"  %>
     </div>
   </div>
-  <%= f.submit "Submit comment!", class: 'btn btn-primary' %>
+  <%= f.submit :class =>"btn btn-info" %>
 <% end %>

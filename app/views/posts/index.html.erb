@@ -1,8 +1,6 @@
 <div class="container-fluid">
 
-
   <p id="notice"><%= notice %></p>
-
   <h1>Posts</h1>
 
   <table class="table table-striped">
@@ -21,18 +19,28 @@
         <td class="table-active"><%= post.content %></td>
         <td class="table-active"><%= post.image %></td>
         <td class="table-active"><%= post.count_view%></td>
-        <td><%= link_to 'Show', post,  class: 'btn btn-primary'  %></td>
-        <td><%= link_to 'Edit', edit_post_path(post),  class: 'btn btn-primary' %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } ,  class: 'btn btn-danger' %></td>
+        <td><%= link_to 'Show', post,  class: "btn btn-outline-primary me-2"  %></td>
+        <td><%= link_to 'Edit', edit_post_path(post),  class: "btn btn-outline-primary me-2" %></td>
+        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } ,  class: "btn btn-outline-primary me-2" %></td>
       </tr>
     <% end %>
     </tbody>
   </table>
-
-
   <br>
 
-  <%= link_to 'New Post', new_post_path, class: 'btn btn-primary' %>
+  <% if current_author.nil?   %>
+    <h2> Login to add posts </h2>
+  <% else %>
+    <%= link_to 'New Post', new_post_path, class: "btn btn-outline-primary me-2" %>
+  <% end %>
+
+<% if current_author.nil? && cookies[:counter_view] > 5 %>
+    <%= render  'sessions/modal' %>
+  <%  end %>
 
 </div>
+
+
+
+
 

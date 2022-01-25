@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <thead>
+  <th>Title</th>
+  <th>Content</th>
+  <th>Image</th>
+  <th>View</th>
+  <th colspan="6"></th>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td class="table-active"><%= post.title %></td>
+      <td class="table-active"><%= post.content %></td>
+      <td class="table-active"><%= post.image %></td>
+      <td class="table-active"><%= post.count_view%></td>
+      <td><%= link_to 'Show', post,  class: 'btn btn-primary'  %></td>
+      <td><%= link_to 'Edit', edit_post_path(post),  class: 'btn btn-primary' %></td>
+      <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } ,  class: 'btn btn-danger' %></td>
+    </tr>
+  </tbody>
+</table>

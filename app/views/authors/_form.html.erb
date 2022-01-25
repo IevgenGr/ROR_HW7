@@ -1,0 +1,23 @@
+<% @author = current_author %>
+<%= form_with(model: @author) do |form| %>
+  <% if author.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(author.errors.count, "error") %> prohibited this author from being saved:</h2>
+      <ul>
+        <% author.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-control">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class:  "form-control form-control-lg" %>
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name , class: "form-control form-control-lg"  %>
+    <%= form.label :avatar_url%>
+    <%= form.text_field :avatar_url, class: "form-control form-control-lg"  %>
+    <%= form.submit class: "btn btn-outline-primary me-2" %>
+  </div>
+<% end %>

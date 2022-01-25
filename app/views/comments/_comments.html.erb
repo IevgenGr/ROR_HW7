@@ -1,13 +1,45 @@
-  <div class="form-control">
-    <table class="table table-striped">
-      <thead>
-      <th>Comments</th>
-      <th>Author</th>
-      <th>Post_id</th>
-      <th>Status</th>
-      <th>Updated</th>
-      </thead>
-      <tbody>
+<div class="form-control">
+  <table class="table table-striped">
+    <thead>
+    <th>Comments</th>
+    <th>Author</th>
+    <th>Post_title</th>
+    <th>Status</th>
+    <th>Updated</th>
+    <th>Created</th>
+    </thead>
+    <tbody>
+<% if  params[:status] == "0" %>
+      <h2> Unpublished </h2>
+  <% @post.comments.unpublished.each do |comment| %>
+        <% if comment.save %>
+          <tr>
+            <td class="table-active"><%= comment.body %></td>
+            <td class="table-active"><%= comment.author.last_name %></td>
+            <td class="table-active"><%= comment.post.title %></td>
+            <td class="table-active"><%= comment.status %></td>
+            <td class="table-active"><%= distance_of_time_in_words(comment.updated_at, Time.now) %></td>
+            <td class="table-active"><%= distance_of_time_in_words(comment.created_at, Time.now) %></td>
+            <td class="table-active"><%= (Time.now - comment.created_at)/3600 %></td>
+            <td class="table-active"> <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete, confirm: 'Are you sure?',  class: "btn btn-outline-primary me-2"   %></td>
+            <% if comment.status == 'unpublished' %>
+              <td class="table-active"> <%= link_to 'Publish comment', publish_comment_post_comment_path(comment.post, comment), method: :get,  class: "btn btn-outline-primary me-2"  %></td>
+            <% else %>
+              <%  if  current_author.nil? %>
+              <% else %>
+                <% if current_author.id == comment.author_id && (Time.now - comment.created_at)/3600<1 %>
+                  <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment), method: :GET, class: 'btn btn-primary' %></td>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% if comment.created_at != comment.updated_at  %>
+              <td class="table-active"><%= 'Edited'  %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    <% else %>
+      <h2> Published </h2>
       <% @post.comments.published.each do |comment| %>
         <% if comment.save %>
           <tr>
@@ -16,24 +48,33 @@
             <td class="table-active"><%= comment.post.title %></td>
             <td class="table-active"><%= comment.status %></td>
             <td class="table-active"><%= distance_of_time_in_words(comment.updated_at, Time.now) %></td>
+            <td class="table-active"><%= distance_of_time_in_words(comment.created_at, Time.now) %></td>
+            <td class="table-active"><%= (Time.now - comment.created_at)/3600 %></td>
+            <td class="table-active"> <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete, confirm: 'Are you sure?',  class: "btn btn-outline-primary me-2"   %></td>
             <% if comment.status == 'unpublished' %>
-            <td class="table-active"> <%= link_to 'Publish', post_comment_path(comment.post, comment), method: :patch,  class: 'btn btn-primary'  %></td>
+              <td class="table-active"> <%= link_to 'Publish comment', publish_comment_post_comment_path(comment.post, comment), method: :get,  class: "btn btn-outline-primary me-2"  %></td>
+            <% else %>
+              <%  if  current_author.nil? %>
+              <% else %>
+                <% if current_author.id == comment.author_id && (Time.now - comment.created_at)/3600<1 %>
+                  <td><%= link_to 'Edit', edit_post_comment_path(comment.post, comment), method: :GET, class: "btn btn-outline-primary me-2" %></td>
+                <% end %>
+              <% end %>
             <% end %>
-            <td class="table-active"> <%= link_to 'Delete', post_comment_path(comment.post, comment), method: :delete, confirm: 'Are you sure?',  class: 'btn btn-danger'   %></td>
+            <% if comment.created_at != comment.updated_at  %>
+              <td class="table-active"><%= 'Edited'  %></td>
+            <% end %>
           </tr>
         <% end %>
       <% end %>
-      </tbody>
-    </table>
+    <% end %>
+    </tbody>
+  </table>
 
-
-    <%= form_with model: [@post,  @comment]  do |form| %>
-    <div class="mb-3 row">
-      <div class="col-sm-2">
-        <%= form.select :status_select, Comment.statuses { |a| a }, selected: '1' , class: "form-control form-control-lg"  %>
-      </div>
+  <%= form_with( scoupe: :status, method: :get, url: post_path) do |form| %>
+    <div class="field">
+      <%= form.select :status, Comment.statuses { |a| a }, selected: 0 %>
     </div>
- <!--   <%#= form.submit "Update view comment", class: 'btn btn-primary' %>-->
+    <button class="btn btn-outline-success me-lg-3" type="submit">Show</button>
       <% end %>
-
-  </div>
+</div>

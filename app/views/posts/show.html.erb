@@ -1,41 +1,34 @@
 <div class="container-fluid">
-
   <p id="notice"><%= notice %></p>
-
   <p>
     <strong>Title:</strong>
     <%= @post.title %>
   </p>
-
   <p>
     <strong>Image:</strong>
-    <%= image_tag @post.image, style: 'width: 200px; height: 100%' %>
+    <%= image_tag @post.image, alt: "Picture should be here", width: "200px", height: "100%" %>
   </p>
-
   <p>
     <strong>Content:</strong>
     <%= @post.content %>
   </p>
-
   <p>
     <strong>Author:</strong>
     <%= @post.author.first_name %>
   </p>
-
-
-  <%= link_to 'Edit', edit_post_path(@post),  class: 'btn btn-primary'  %>
-  <%= link_to 'Back', posts_path,  class: 'btn btn-primary'  %>
-
-  <h2> Published </h2>
+  <%= link_to 'Edit', edit_post_path(@post),  class: "btn btn-outline-primary me-2"  %>
+  <%= link_to 'Back', posts_path,  class: "btn btn-outline-primary me-2"  %>
   <p>
     <%= render 'comments/comments' %>
   <p>
-  <h2> Unpublished </h2>
-  <p>
-    <%= render 'comments/comments_unpublished' %>
-  <p>
-  <h2> Add comment </h2>
-    <%= render 'comments/form' %>
-  </p>
-
+    <% if current_author.nil? %>
+    <h2> Login to leave comments </h2>
+      <% else %>
+        <h2> Add comment </h2>
+      <%= render 'comments/form' %>
+    <% end %>
 </div>
+
+<% if current_author.nil? && cookies[:counter_view] > 5 %>
+  <%= render  'sessions/modal' %>
+<%  end %>
